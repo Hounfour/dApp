@@ -1,7 +1,6 @@
 import Link from "next/link";
 import styles from "../styles/Home.module.css";
 import { MediaRenderer, useContract, useContractMetadata } from "@thirdweb-dev/react";
-import { type } from "os";
 
 type CardProps = {
     href: string;
