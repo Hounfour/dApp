@@ -68,7 +68,9 @@ export default function NavBar() {
                 }}
 
                 detailsBtn={() => {
-                    return <p>Profile</p>
+                    return (
+                        <p style={{ cursor: 'pointer' }}>Profile</p>
+                    );
                 }}
 
                 supportedTokens={{
