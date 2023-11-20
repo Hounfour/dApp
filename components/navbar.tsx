@@ -41,13 +41,13 @@ export default function NavBar() {
     return (
         <div className={styles.navbarContainer}>
             <Link href="/">
-                <p className={styles.gradientText1}
+                <p className={styles.gradientText2}
                     style={{
                         cursor: 'pointer',
                         fontSize: '1.2 rem',
                         fontWeight: 'bold'
                     }}>
-                    Portfolio
+                    Home
                 </p>
             </Link>
             <ConnectWallet 
@@ -69,7 +69,13 @@ export default function NavBar() {
 
                 detailsBtn={() => {
                     return (
-                        <p style={{ cursor: 'pointer' }}>Profile</p>
+                        <p className={styles.gradientText4}
+                            style={{
+                                cursor: 'pointer',
+                                fontSize: '1.2 rem',
+                                fontWeight: 'bold',
+                            }}>PROFILE
+                        </p>
                     );
                 }}
 

@@ -1,6 +1,5 @@
-import { darkTheme } from "@thirdweb-dev/react";
 import ContractCard from "../components/contract-card";
-import { BTN_ERC20_CONTRACT_ADDRESS, DOLLS_ERC721_CONTRACT_ADDRESS, MASK_STAKING_CONTRACT_ADDRESS } from "../constants/addresses";
+import { BTN_ERC20_CONTRACT_ADDRESS, DOLLS_ERC721_CONTRACT_ADDRESS, MARKETPLACE_CONTRACT_ADDRESS, MASKS_ERC721_CONTRACT_ADDRESS, PROFILE_STATUS_CONTRACT_ADDRESS } from "../constants/addresses";
 import styles from "../styles/Home.module.css";
 import { NextPage } from "next";
 
@@ -10,9 +9,9 @@ const Home: NextPage = () => {
       <div className={styles.container}>
         <div>
           <h1 className={styles.title}>
-            My{" "}
+            Vodou{" "}
             <span className={styles.gradientText0}>
-                Portal
+                dApp
             </span>
           </h1>
           <p className={styles.description}>Select a contract to interact with.</p>
@@ -20,21 +19,33 @@ const Home: NextPage = () => {
         <div className={styles.grid}>
           <ContractCard
             href="/"
-            contractAddress={BTN_ERC20_CONTRACT_ADDRESS}
-            title="$BTN - ERC20"
-            description="Claim ERC20 Tokens"
+            contractAddress={PROFILE_STATUS_CONTRACT_ADDRESS}
+            title="Profile Status"
+            description="Set your profile status"
           />
           <ContractCard
             href="/"
             contractAddress={DOLLS_ERC721_CONTRACT_ADDRESS}
-            title="Hounfour Dolls (ERC721)"
-            description="Claim ERC721 Tokens"
+            title="Hounfour Dolls"
+            description="Mint & stake your Hounfour Dolls"
           />
           <ContractCard
             href="/"
-            contractAddress={MASK_STAKING_CONTRACT_ADDRESS}
-            title="Hounfour Mask Staking"
-            description="Stake ERC721 NFTs for ERC20 tokens."
+            contractAddress={MASKS_ERC721_CONTRACT_ADDRESS}
+            title="Hounfour Masks"
+            description="Mint & stake your Hounfour Masks"
+          />
+          <ContractCard
+            href="/"
+            contractAddress={MARKETPLACE_CONTRACT_ADDRESS}
+            title="Mystic Market Shop"
+            description="View marketplace inventory"
+          />
+          <ContractCard
+            href="/"
+            contractAddress={BTN_ERC20_CONTRACT_ADDRESS}
+            title="$BUTNS"
+            description="Hounfour's primary currency"
           />
         </div>
       </div>
