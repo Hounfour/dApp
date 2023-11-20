@@ -9,7 +9,7 @@ export default function NavBar() {
             primaryText: "#cb6a1a",
             secondaryText: "#a9a8a7",
             accentText: "#1a681e",
-            // danger: "",
+            //danger: "",
             // success: "",
             // modalOverlayBg: "",
             accentButtonBg: "#1a681e",
