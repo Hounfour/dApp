@@ -1,84 +1,69 @@
 import Link from 'next/link';
-import styles from '../styles/Home.module.css';
+import styles from '../styles/navBar.module.css';
 import { ConnectWallet, darkTheme } from '@thirdweb-dev/react';
 
+const customDarkTheme = darkTheme({
+    fontFamily: "serif",
+    colors: {
+        primaryText: "#cb6a1a",
+        secondaryText: "#a9a8a7",
+        accentText: "#1a681e",
+        //danger: "",
+        // success: "",
+        // modalOverlayBg: "",
+        accentButtonBg: "#1a681e",
+        accentButtonText: "#320647",
+        primaryButtonBg: "#320647",
+        primaryButtonText: "#cb6a1a",
+        secondaryButtonBg: "#1a681e",
+        secondaryButtonText: "#bebdc7",
+        secondaryButtonHoverBg: "#cb6a1a",
+        modalBg: "#320647",
+        dropdownBg: "#320647",
+        // tooltipBg: "",
+        // tooltipText: "",
+        // inputAutofillBg: "",
+        scrollbarBg: "#131313",
+        walletSelectorButtonHoverBg: "#1a681e",
+        separatorLine: "#552d0c",
+        secondaryIconColor: "#bebdc7",
+        secondaryIconHoverBg: "",
+        secondaryIconHoverColor: "#ff0000",
+        // borderColor: "",
+        // skeletonBg: "",
+        // selectedTextColor: "",
+        // selectedTextBg: "",
+        connectedButtonBg: "#552d0c",
+        connectedButtonBgHover: "#1a681e"
+    }
+});
+
 export default function NavBar() {
-    const customDarkTheme = darkTheme({
-        fontFamily: "serif",
-        colors: {
-            primaryText: "#cb6a1a",
-            secondaryText: "#a9a8a7",
-            accentText: "#1a681e",
-            //danger: "",
-            // success: "",
-            // modalOverlayBg: "",
-            accentButtonBg: "#1a681e",
-            accentButtonText: "#320647",
-            primaryButtonBg: "#320647",
-            primaryButtonText: "#cb6a1a",
-            secondaryButtonBg: "#1a681e",
-            secondaryButtonText: "#bebdc7",
-            secondaryButtonHoverBg: "#cb6a1a",
-            modalBg: "#320647",
-            dropdownBg: "#320647",
-            // tooltipBg: "",
-            // tooltipText: "",
-            // inputAutofillBg: "",
-            // scrollbarBg: "",
-            walletSelectorButtonHoverBg: "#1a681e",
-            separatorLine: "#552d0c",
-            secondaryIconColor: "#bebdc7",
-            secondaryIconHoverBg: "",
-            secondaryIconHoverColor: "#ff0000",
-            // borderColor: "",
-            // skeletonBg: "",
-            // selectedTextColor: "",
-            // selectedTextBg: "",
-            connectedButtonBg: "#552d0c",
-            connectedButtonBgHover: "#1a681e"
-        }
-    })
     return (
         <div className={styles.navbarContainer}>
             <Link href="/">
-                <p className={styles.gradientText2}
-                    style={{
-                        cursor: 'pointer',
-                        fontSize: '1.2 rem',
-                        fontWeight: 'bold'
-                    }}>
+                <p className={styles.gradientText0}>
                     Home
                 </p>
             </Link>
             <ConnectWallet 
                 btnTitle='Sign In'
-                modalTitle='Select sign in method'
-
                 modalSize="compact"
-
-                termsOfServiceUrl="https://discord.com/channels/1015984378297450576/1174037557902839828/1174044945758294216"
-                privacyPolicyUrl="https://discord.com/channels/1015984378297450576/1174037138774429717/1174037138774429717"
-
+                modalTitle='Hounfour NFT|LCG'
                 theme={customDarkTheme}
                 switchToActiveChain={true}
                 hideTestnetFaucet={true}
-
+                modalTitleIconUrl='https://cdn.discordapp.com/attachments/1015369955950198946/1176503609769349151/hounfour-website-favicon-color_1.png?ex=656f1b5e&is=655ca65e&hm=e9c5240e7b9d62118ba11fa32696d16da8ba34a8d4590318bf86364a8530098d&'
+                termsOfServiceUrl="https://discord.com/channels/1015984378297450576/1174037557902839828/1174044945758294216"
+                privacyPolicyUrl="https://discord.com/channels/1015984378297450576/1174037138774429717/1174037138774429717"
                 displayBalanceToken={{
                     137: "0x2fDC9FbF4C076d3F45FF2864E87c3352c726FC39"
                 }}
-
                 detailsBtn={() => {
                     return (
-                        <p className={styles.gradientText4}
-                            style={{
-                                cursor: 'pointer',
-                                fontSize: '1.2 rem',
-                                fontWeight: 'bold',
-                            }}>PROFILE
-                        </p>
+                        <p className={styles.gradientText1}>WALLET</p>
                     );
                 }}
-
                 supportedTokens={{
                     [137]: [
                         {
@@ -97,5 +82,5 @@ export default function NavBar() {
                 }}
             />
         </div>
-    )
+    );
 }

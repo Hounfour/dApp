@@ -1,0 +1,43 @@
+.navbarContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    width: 100%;
+    height: 84px;
+    max-width: 1280px;
+}
+
+.gradientText0 {
+    background: -webkit-linear-gradient(#995ac3, #320647c0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    /* Adding transitions for color and transform */
+}
+
+.gradientText0:hover {
+    color: #ffffff; /* Change text color on hover */
+    transform: rotate(5deg); /* Rotate the text slightly on hover */
+}
+
+.gradientText1 {
+    background: -webkit-linear-gradient(#cb6a1a, #996649);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: text-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    /* Adding transition for shadow and transform */
+}
+
+.gradientText1:hover {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Shadow effect on hover */
+    transform: rotate(-5deg); /* Move the text slightly on hover */
+}

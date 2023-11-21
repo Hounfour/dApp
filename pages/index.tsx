@@ -1,24 +1,26 @@
 import ContractCard from "../components/contract-card";
 import { BTN_ERC20_CONTRACT_ADDRESS, DOLLS_ERC721_CONTRACT_ADDRESS, MARKETPLACE_CONTRACT_ADDRESS, MASKS_ERC721_CONTRACT_ADDRESS, PROFILE_STATUS_CONTRACT_ADDRESS } from "../constants/addresses";
-import styles from "../styles/Home.module.css";
+import styles from "../styles/dashboard.module.css";
 import { NextPage } from "next";
 
 const Home: NextPage = () => {
   return (
-    <main>
-      <div className={styles.container}>
-        <div>
+      <main className={styles.container}>
+      <header>
           <h1 className={styles.title}>
             Vodou{" "}
-            <span className={styles.gradientText0}>
+            <span className={styles.gradientText}>
                 dApp
             </span>
-          </h1>
-          <p className={styles.description}>Select a contract to interact with.</p>
-        </div>
-        <div className={styles.grid}>
+          <p className={styles.description} style={{
+            paddingLeft: '5rem',
+          }}>
+            Hounfour's Web3 Portal</p>
+        </h1>
+        </header>
+        <section className={styles.grid}>
           <ContractCard
-            href="/"
+            href="/project/profileStatus"
             contractAddress={PROFILE_STATUS_CONTRACT_ADDRESS}
             title="Profile Status"
             description="Set your profile status"
@@ -47,8 +49,7 @@ const Home: NextPage = () => {
             title="$BUTNS"
             description="Hounfour's primary currency"
           />
-        </div>
-      </div>
+        </section>
     </main>
   );
 };

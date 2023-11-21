@@ -1,11 +1,19 @@
 .container {
-  width: 100%;
+  width: 66%;
   max-width: 1920px;
-  padding: 2rem;
+  padding: 5rem;
   margin: 0 auto;
   display: grid;
   flex-direction: column;
-  justify-content: center;
+  justify-content: left;
+}
+
+.componentCard {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  padding: 14px;
+  font-size: large;
 }
 
 .gradientText0 {
@@ -23,10 +31,11 @@
 }
 
 .gradientText2 {
-  background: -webkit-linear-gradient(#bfa3da, #743f93);
+  background: -webkit-linear-gradient(#995ac3, #320647c0);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  font-size: 20px;
   transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
   /* Adding transitions for color and transform */
 }
@@ -34,7 +43,7 @@
 .gradientText2:hover {
   color: #ffffff;
   /* Change text color on hover */
-  transform: rotate(2.5deg);
+  transform: rotate(5deg);
   /* Rotate the text slightly on hover */
 }
 
@@ -46,11 +55,11 @@
 }
 
 .gradientText4 {
-  background: -webkit-linear-gradient(#dabea3, #ac5d13);
+  background: -webkit-linear-gradient(#cb6a1a, #996649);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: 20px;
+  font-size: 24px;
   transition: text-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
   /* Adding transition for shadow and transform */
 }
@@ -60,6 +69,15 @@
   /* Shadow effect on hover */
   transform: translate(0px, 2px);
   /* Move the text slightly on hover */
+}
+
+.gradientText5 {
+  background: -webkit-linear-gradient(#995ac3, #320647c0);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+  /* Adding transitions for color and transform */
 }
 
 .title a:hover,
@@ -104,9 +122,16 @@
   gap: 33px;
 }
 
+.gridWide {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 33px;
+}
+
 .card {
   background-color: #131313;
-  text-align: left;
+  text-align: center;
   color: inherit;
   text-decoration: none;
   border-radius: 13px;
@@ -119,15 +144,16 @@
 }
 
 .cardText {
-  padding: 1rem;
+  padding: 0.5rem;
+  color: #1a681e;
 }
 
-.card img {
+.cardImg {
   display: block;
   width: 100%;
   height: auto;
-  border-radius: 13px 13px 13px 13px;
-  margin-bottom: 12px;
+  border-radius: 13px 13px 0px 0px;
+  margin-bottom: 13px;
   border: none;
 }
 
@@ -279,36 +305,42 @@
   margin: 0.5rem 0;
 }
 
-
 .heroContainer {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
   padding: 1rem 0;
   margin: 0 auto;
   width: 100%;
-  height: 80vh;
-  max-width: 1440px;
+  max-width: 1920px;
 }
 
 .heroImageContainer {
+  width: 20%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 50%;
+  justify-content: flex-start !;
+  /* Align content to the left */
+  align-items: flex-start;
+  /* Align content to the top */
 }
 
 .heroImage {
-  text-align: center;
+  margin: 0 auto;
+}
+
+.heroCardContent {
+  background: #13131373;
+  width: 75%;
+  /* Adjust the width to take up the remaining space */
+  padding: 0 20px;
+  color: #1a681e;
 }
 
 .stakeContainer {
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
 }
 
 .stakeNFTCardContainer {
