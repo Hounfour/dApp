@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import styles from '../styles/navBar.module.css';
-import { ConnectWallet, darkTheme } from '@thirdweb-dev/react';
+import { ConnectWallet, darkTheme, embeddedWallet, metamaskWallet, smartWallet, useAddress, useConnect, useContract, useOwnedNFTs } from '@thirdweb-dev/react';
+import { MASKS_ERC721_CONTRACT_ADDRESS, SMART_WALLET_CONTRACT_ADDRESS } from '../constants/addresses';
+import { useState } from 'react';
 
 const customDarkTheme = darkTheme({
     fontFamily: "serif",
@@ -38,7 +40,82 @@ const customDarkTheme = darkTheme({
     }
 });
 
+const embeddedWalletConfig = embeddedWallet();
+const smartEmbeddedWalletConfig = smartWallet(embeddedWalletConfig, {
+    factoryAddress: SMART_WALLET_CONTRACT_ADDRESS,
+    gasless: true,
+});
+
+const metaMaskWalletConfig = metamaskWallet();
+const smartMetaMaskWalletConfig = smartWallet(metaMaskWalletConfig, {
+    factoryAddress: SMART_WALLET_CONTRACT_ADDRESS,
+    gasless: true,
+});
+
 export default function NavBar() {
+    const address = useAddress();
+    const connect = useConnect();
+
+    const [emailInput, setEmailInput] = useState("");
+    const [personalEmbeddedWalletAddress, setPersonalEmbeddedWalletAddress] = useState<string | undefined>(undefined)
+    const [personalMetaMaskWalletAddress, setPersonalMetaMaskWalletAddress] = useState<string | undefined>(undefined)
+
+    const [smartEmbeddedWalletAddress, setSmartEmbeddedWalletAddress] = useState<string | undefined>(undefined)
+    const [smartMetaMaskWalletAddress, setSmartMetaMaskWalletAddress] = useState<string | undefined>(undefined)
+
+    const handleLogin = async () => {
+        try {
+            const personalEmbeddedWallet = await connect(embeddedWalletConfig);
+            const personalMetaMaskWallet = await connect(metaMaskWalletConfig);
+
+
+            const personalMetaMaskWalletAddress = await personalMetaMaskWallet.getAddress();
+
+            setPersonalEmbeddedWalletAddress(personalEmbeddedWalletAddress);
+            setPersonalMetaMaskWalletAddress(personalMetaMaskWalletAddress);
+
+            const smartEmbeddedWallet = await connect(smartEmbeddedWalletConfig, {
+                personalWallet: personalEmbeddedWallet,
+                chainId: 137,
+            });
+            const smartEmbeddedWalletAddress = await smartEmbeddedWallet.getAddress();
+            setSmartEmbeddedWalletAddress(smartEmbeddedWalletAddress);
+
+            const smartMetaMaskWallet = await connect(smartMetaMaskWalletConfig, {
+                personalWallet: personalMetaMaskWallet,
+                chainId: 137,
+            });
+            const smartMetaMaskWalletAddress = await smartMetaMaskWallet.getAddress();
+            setSmartMetaMaskWalletAddress(smartMetaMaskWalletAddress);
+
+            setEmailInput("");
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const { contract } = useContract(MASKS_ERC721_CONTRACT_ADDRESS);
+
+    const {
+        data: personalOwnedNFTs,
+        isLoading: isOwnedNFTsLoading,
+    } = useOwnedNFTs(contract, personalEmbeddedWalletAddress);
+
+    const {
+        data: smartOwnedNFTs,
+        isLoading: isSmartOwnedNFTsLoading,
+    } = useOwnedNFTs(contract, smartEmbeddedWalletAddress);
+
+    const {
+        data: personalMetaMaskOwnedNFTs,
+        isLoading: isMetaMaskOwnedNFTsLoading,
+    } = useOwnedNFTs(contract, personalMetaMaskWalletAddress);
+
+    const {
+        data: smartMetaMaskOwnedNFTs,
+        isLoading: isSmartMetaMaskOwnedNFTsLoading,
+    } = useOwnedNFTs(contract, smartMetaMaskWalletAddress);
+    
     return (
         <div className={styles.navbarContainer}>
             <Link href="/">

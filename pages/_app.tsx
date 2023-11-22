@@ -1,5 +1,5 @@
 import type { AppProps } from "next/app";
-import { ThirdwebProvider, coinbaseWallet, darkTheme, embeddedWallet, localWallet, metamaskWallet, phantomWallet, smartWallet, trustWallet, useAddress, useConnect } from "@thirdweb-dev/react";
+import { ThirdwebProvider, coinbaseWallet, embeddedWallet, localWallet, metamaskWallet, phantomWallet, smartWallet, trustWallet } from "@thirdweb-dev/react";
 import "../styles/globals.css";
 import NavBar from "../components/navbar";
 import { SMART_WALLET_CONTRACT_ADDRESS } from "../constants/addresses";

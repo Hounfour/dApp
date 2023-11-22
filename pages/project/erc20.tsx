@@ -1,7 +1,7 @@
 import HeroCard from '../../components/hero-card'
 import styles from '../../styles/Home.module.css'
 import { Web3Button, darkTheme, useAddress, useContract, useContractMetadata, useTokenBalance, useTokenSupply } from '@thirdweb-dev/react'
-import { BTN_ERC20_CONTRACT_ADDRESS } from '../../constants/addresses'
+import { BTN_ERC20_CONTRACT_ADDRESS, BUTN_ERC20_CONTRACT_ADDRESS } from '../../constants/addresses'
 import Link from 'next/link';
 
 export default function ERC20Project() {
@@ -44,50 +44,109 @@ export default function ERC20Project() {
     const address = useAddress();
 
     const {
-        contract
+        contract: btnContract
     } = useContract(BTN_ERC20_CONTRACT_ADDRESS, "token");
 
     const {
-        data: contractMetadata,
-        isLoading: contractMetadataIsLoading,
-    } = useContractMetadata(contract);
+        data: btnContractMetadata,
+        isLoading: btnContractMetadataIsLoading,
+    } = useContractMetadata(btnContract);
 
     const {
-        data: tokenSupply,
-        isLoading: tokenSupplyIsLoading
-    } = useTokenSupply(contract);
+        data: btnTokenSupply,
+        isLoading: btnTokenSupplyIsLoading
+    } = useTokenSupply(btnContract);
 
     const {
-        data: tokenBalance,
-        isLoading: tokenBalanceIsLoading,
-    } = useTokenBalance(contract, address)
+        data: btnTokenBalance,
+        isLoading: btnTokenBalanceIsLoading,
+    } = useTokenBalance(btnContract, address)
+
+    const {
+        contract: butnContract
+    } = useContract(BUTN_ERC20_CONTRACT_ADDRESS, "token-drop");
+
+    const {
+        data: butnContractMetadata,
+        isLoading: butnContractMetadataIsLoading,
+    } = useContractMetadata(butnContract);
+
+    const {
+        data: butnTokenSupply,
+        isLoading: butnTokenSupplyIsLoading
+    } = useTokenSupply(butnContract);
+
+    const {
+        data: butnTokenBalance,
+        isLoading: butnTokenBalanceIsLoading,
+    } = useTokenBalance(butnContract, address)
+
+    const {
+        data: butnTokenMaxSupply,
+        isLoading: butnTokenMaxSupplyIsLoading
+    } = useTokenSupply(butnContract);
 
     return (
         <div className={styles.container}>
             <HeroCard
-                isLoading={contractMetadataIsLoading}
-                title={contractMetadata?.name!}
-                description={contractMetadata?.description!}
-                image={contractMetadata?.image!}
+                isLoading={btnContractMetadataIsLoading}
+                title={btnContractMetadata?.name!}
+                description={btnContractMetadata?.description!}
+                image={btnContractMetadata?.image!}
             />
             <div className={styles.grid}>
                 <div className={styles.componentCard}>
                     <h3 className={styles.gradientText0}>Token Stats</h3>
-                    {tokenSupplyIsLoading ? (
+                    {btnTokenSupplyIsLoading ? (
                         <p className={styles.gradientText3}>Loading supply...</p>
                     ) : (
-                            <p className={styles.gradientText1}>Total supply: {tokenSupply?.displayValue} {tokenSupply?.symbol}</p>
+                            <p className={styles.gradientText1}>Total BTN supply: {btnTokenSupply?.displayValue} {btnTokenSupply?.symbol}</p>
                     )}   
                 </div>
                 <div className={styles.componentCard}>
                     <h3 className={styles.gradientText0}>Token Balance</h3>
-                    {tokenBalanceIsLoading ? (
+                    {btnTokenBalanceIsLoading ? (
                         <p className={styles.gradientText3}>Loading balance...</p>
                     ) : (
-                        <p className={styles.gradientText1}>Balance: {tokenBalance?.displayValue} {tokenBalance?.symbol}</p>
+                        <p className={styles.gradientText1}>Balance: {btnTokenBalance?.displayValue} {btnTokenBalance?.symbol}</p>
                     )}
                     <Web3Button
                         contractAddress={BTN_ERC20_CONTRACT_ADDRESS}
+                        action={(contract) => contract.erc20.burn(10)}
+                        theme={customDarkTheme}
+                    >Burn 10 Butns</Web3Button>
+                </div>
+                <div className={styles.componentCard}>
+                    <h3 className={styles.gradientText0}>Earn Tokens</h3>
+                    <p className={styles.gradientText1}>Earn more butns by staking an ERC721 NFT.</p>
+                    <div>
+                        <Link href='/project/staking'>
+                            <button className={styles.connectButtonBg}>Stake ERC721</button>
+                        </Link>
+                        <Link href='/project/erc721'>
+                            <button className={styles.matchButton}>Claim ERC721</button>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+            <div className={styles.grid}>
+                <div className={styles.componentCard}>
+                    <h3 className={styles.gradientText0}>Token Stats</h3>
+                    {butnTokenSupplyIsLoading ? (
+                        <p className={styles.gradientText3}>Loading supply...</p>
+                    ) : (
+                        <p className={styles.gradientText1}>Total BUTN supply: {butnTokenSupply?.displayValue} {butnTokenSupply?.symbol}</p>
+                    )}
+                </div>
+                <div className={styles.componentCard}>
+                    <h3 className={styles.gradientText0}>Token Balance</h3>
+                    {butnTokenBalanceIsLoading ? (
+                        <p className={styles.gradientText3}>Loading balance...</p>
+                    ) : (
+                        <p className={styles.gradientText1}>Balance: {butnTokenBalance?.displayValue} {butnTokenBalance?.symbol}</p>
+                    )}
+                    <Web3Button
+                        contractAddress={BUTN_ERC20_CONTRACT_ADDRESS}
                         action={(contract) => contract.erc20.burn(10)}
                         theme={customDarkTheme}
                     >Burn 10 Butns</Web3Button>

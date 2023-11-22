@@ -50,13 +50,15 @@ export default function StakingProject() {
         if (!stakingContract || !address) return;
 
         async function getClaimableRewards() {
-            const claimableRewards = await stakingContract?.call(
-                "getStakeInfo",
-                [address]
-            );
-
-            setClaimableRewards(claimableRewards[1]);
-        };
+            try {
+                const claimableRewards = await stakingContract?.call("getStakeInfo", [address]);
+                setClaimableRewards(claimableRewards[1]);
+            } catch (error) {
+                alert("Error fetching claimable rewards. Please try again.");
+                // Handle the error accordingly
+                console.error(error);
+            }
+        }
 
         getClaimableRewards();
     }, [address, stakingContract]);
@@ -109,24 +111,7 @@ export default function StakingProject() {
                             )
                         )}
                     </div>
-                    <div className={styles.componentCard}>
-                        <h3>Staked</h3>
-                        {isStakedERC721TokensLoading ? (
-                            <p>Loading...</p>
-                        ) : (
-                            stakedERC721Tokens && stakedERC721Tokens.length > 0 ? (
-                                stakedERC721Tokens[0].map((stakedNFT: BigNumber, index: number) => (
-                                    <div key={index} className={styles.nftGrid}>
-                                        <StakedNFTCard
-                                            tokenId={stakedNFT.toNumber()}
-                                        />
-                                    </div>
-                                ))
-                            ) : (
-                                <p>No NFTs Staked.</p>
-                            )
-                        )}
-                    </div>
+                    
                 </div>
             </div>
         </div>

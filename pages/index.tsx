@@ -1,86 +1,9 @@
-import { ConnectWallet, Web3Button, embeddedWallet, metamaskWallet, smartWallet, useAddress, useConnect, useContract, useOwnedNFTs } from "@thirdweb-dev/react";
 import ContractCard from "../components/contract-card";
 import { BTN_ERC20_CONTRACT_ADDRESS, DOLLS_ERC721_CONTRACT_ADDRESS, MARKETPLACE_CONTRACT_ADDRESS, MASKS_ERC721_CONTRACT_ADDRESS, PROFILE_STATUS_CONTRACT_ADDRESS, SMART_WALLET_CONTRACT_ADDRESS } from "../constants/addresses";
 import styles from "../styles/dashboard.module.css";
 import { NextPage } from "next";
-import { useState } from "react";
-
-const embeddedWalletConfig = embeddedWallet();
-const smartEmbeddedWalletConfig = smartWallet(embeddedWalletConfig, {
-  factoryAddress: SMART_WALLET_CONTRACT_ADDRESS,
-  gasless: true,
-});
-
-const metaMaskWalletConfig = metamaskWallet();
-const smartMetaMaskWalletConfig = smartWallet(metaMaskWalletConfig, {
-  factoryAddress: SMART_WALLET_CONTRACT_ADDRESS,
-  gasless: true,
-});
 
 const Home: NextPage = () => {
-  const address = useAddress();
-  const connect = useConnect();
-
-  const [emailInput, setEmailInput] = useState("");
-  const [personalEmbeddedWalletAddress, setPersonalEmbeddedWalletAddress] = useState<string | undefined>(undefined)
-  const [personalMetaMaskWalletAddress, setPersonalMetaMaskWalletAddress] = useState<string | undefined>(undefined)
-
-  const [smartEmbeddedWalletAddress, setSmartEmbeddedWalletAddress] = useState<string | undefined>(undefined)
-  const [smartMetaMaskWalletAddress, setSmartMetaMaskWalletAddress] = useState<string | undefined>(undefined)
-
-  const handleLogin = async () => {
-    try {
-      const personalEmbeddedWallet = await connect(embeddedWalletConfig);
-      const personalMetaMaskWallet = await connect(metaMaskWalletConfig);
-
-      
-      const personalMetaMaskWalletAddress = await personalMetaMaskWallet.getAddress();
-
-      setPersonalEmbeddedWalletAddress(personalEmbeddedWalletAddress);
-      setPersonalMetaMaskWalletAddress(personalMetaMaskWalletAddress);
-
-      const smartEmbeddedWallet = await connect(smartEmbeddedWalletConfig, {
-        personalWallet: personalEmbeddedWallet,
-        chainId: 137,
-      });
-      const smartEmbeddedWalletAddress = await smartEmbeddedWallet.getAddress();
-      setSmartEmbeddedWalletAddress(smartEmbeddedWalletAddress);
-
-      const smartMetaMaskWallet = await connect(smartMetaMaskWalletConfig, {
-        personalWallet: personalMetaMaskWallet,
-        chainId: 137,
-      });
-      const smartMetaMaskWalletAddress = await smartMetaMaskWallet.getAddress();
-      setSmartMetaMaskWalletAddress(smartMetaMaskWalletAddress);
-
-      setEmailInput("");
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const { contract } = useContract(MASKS_ERC721_CONTRACT_ADDRESS);
-
-  const {
-    data: personalOwnedNFTs,
-    isLoading: isOwnedNFTsLoading,
-  } = useOwnedNFTs(contract, personalEmbeddedWalletAddress);
-
-  const {
-    data: smartOwnedNFTs,
-    isLoading: isSmartOwnedNFTsLoading,
-  } = useOwnedNFTs(contract, smartEmbeddedWalletAddress);
-
-  const {
-    data: personalMetaMaskOwnedNFTs,
-    isLoading: isMetaMaskOwnedNFTsLoading,
-  } = useOwnedNFTs(contract, personalMetaMaskWalletAddress);
-
-  const {
-    data: smartMetaMaskOwnedNFTs,
-    isLoading: isSmartMetaMaskOwnedNFTsLoading,
-  } = useOwnedNFTs(contract, smartMetaMaskWalletAddress);
-  
   return (
       <main className={styles.container}>
       <header>
@@ -109,7 +32,7 @@ const Home: NextPage = () => {
             description="Mint & stake your Hounfour Dolls"
           />
           <ContractCard
-            href="/"
+            href="/project/staking"
             contractAddress={MASKS_ERC721_CONTRACT_ADDRESS}
             title="Hounfour Masks"
             description="Mint & stake your Hounfour Masks"
