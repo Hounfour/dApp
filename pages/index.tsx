@@ -92,7 +92,7 @@ const Home: NextPage = () => {
           <p className={styles.description} style={{
             paddingLeft: '5rem',
           }}>
-            Hounfour's Web3 Portal</p>
+            Hounfours Web3 Portal</p>
         </h1>
         </header>
         <section className={styles.grid}>
