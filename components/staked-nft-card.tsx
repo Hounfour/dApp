@@ -18,6 +18,7 @@ export default function StakedNFTCard({ tokenId }: NFTProps) {
         data: nftMetadata,
         isLoading: nftMetadataIsLoading,
     } = useNFT(ERC721Contract, tokenId);
+    
     return (
         <div className={styles.card}>
             <ThirdwebNftMedia

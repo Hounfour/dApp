@@ -79,7 +79,7 @@ export default function ERC721Project() {
                     description={contractMetadata?.description!}
                     image={contractMetadata?.image!}
                 />
-                <div className={styles.grid}>
+                <div className={styles.heroCardContent}>
                     <div className={styles.componentCard}>
                         <h3 className={styles.gradientText0}>Contract Stats</h3>
                         <p className={styles.gradientText1}>
@@ -89,7 +89,6 @@ export default function ERC721Project() {
                             ) : (
                                 ` ${totalSupply?.toNumber()}`
                             )}
-                        </p>
                         <p className={styles.gradientText1}>
                             Total Claimed:
                             {totalClaimedSupplyIsLoading ? (
@@ -97,14 +96,15 @@ export default function ERC721Project() {
                             ) : (
                                 ` ${totalClaimedSupply?.toNumber()}`
                             )}
-                        </p>
                         <p className={styles.gradientText1}>
-                            You Own:
+                            Total Owned:
                             {ownedNFTsIsLoading ? (
                                 "Loading..."
                             ) : (
                                 ` ${ownedNFTs?.length}`
                             )}
+                        </p>
+                        </p>
                         </p>
                     </div>
                     <div className={styles.componentCard}>

@@ -317,11 +317,6 @@
 
 .heroImageContainer {
   width: 20%;
-  display: flex;
-  justify-content: flex-start !;
-  /* Align content to the left */
-  align-items: flex-start;
-  /* Align content to the top */
 }
 
 .heroImage {

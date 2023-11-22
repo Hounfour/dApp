@@ -9,6 +9,7 @@ import StakedNFTCard from '../../components/staked-nft-card';
 
 export default function StakingProject() {
     const address = useAddress();
+    
     const [claimableRewards, setClaimableRewards] = useState<BigNumber>();
 
     const {
@@ -46,7 +47,7 @@ export default function StakingProject() {
     );
 
     useEffect(() => {
-        if (!address || !stakingContract) return;
+        if (!stakingContract || !address) return;
 
         async function getClaimableRewards() {
             const claimableRewards = await stakingContract?.call(
@@ -78,7 +79,7 @@ export default function StakingProject() {
                             <p>Balance: {tokenBalance?.displayValue} {tokenBalance?.symbol}</p>
                         )}
                         {claimableRewards && (
-                            <p>Reward balance: {ethers.utils.formatEther(claimableRewards!)}</p>
+                            <p>Reward balance: {ethers.utils.formatEther(claimableRewards)}</p>
                         )}
                         <Web3Button
                             contractAddress={MASK_STAKING_CONTRACT_ADDRESS}
@@ -88,21 +89,21 @@ export default function StakingProject() {
                                 setClaimableRewards(ethers.constants.Zero);
                             }}
                             isDisabled={!claimableRewards || claimableRewards.isZero()}
-                        >Claim Rewards</Web3Button>
-                    </div>
-                    <div className={styles.componentCard}>
-                        <h3>Unstaked</h3>
-                        {ownedERC721TokensIsLoading ? (
-                            <p>Loading...</p>
-                        ) : (
-                            ownedERC721Tokens && ownedERC721Tokens.length > 0 ? (
-                                ownedERC721Tokens.map((nft) => (
-                                    <div key={nft.metadata.id} className={styles.nftGrid}>
-                                        <StakeNFTCard
-                                            nft={nft}
-                                        />
-                                    </div>
-                                ))
+                            >Claim Rewards</Web3Button>
+                        </div>
+                        <div className={styles.componentCard}>
+                            <h3>Unstaked</h3>
+                            {ownedERC721TokensIsLoading ? (
+                                <p>Loading...</p>
+                            ) : (
+                                ownedERC721Tokens && ownedERC721Tokens.length > 0 ? (
+                                    ownedERC721Tokens.map((nft) => (
+                                        <div key={nft.metadata.id} className={styles.nftGrid}>
+                                            <StakeNFTCard
+                                                nft={nft}
+                                            />
+                                        </div>
+                                    ))
                             ) : (
                                 <p>No NFTs owned.</p>
                             )
