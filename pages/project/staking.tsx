@@ -109,7 +109,7 @@ export default function StakingProject() {
                             ) : (
                                 <p>No NFTs owned.</p>
                             )
-                        )}
+                        )};
                     </div>
                     <div className={styles.componentCard}>
                         <h3>Staked</h3>
@@ -127,10 +127,10 @@ export default function StakingProject() {
                             ) : (
                                 <p>No NFTs owned.</p>
                             )
-                        )}
+                        )};
                     </div>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};

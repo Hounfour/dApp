@@ -1,5 +1,5 @@
 import ContractCard from "../components/contract-card";
-import { BTN_ERC20_CONTRACT_ADDRESS, DOLLS_ERC721_CONTRACT_ADDRESS, MARKETPLACE_CONTRACT_ADDRESS, MASKS_ERC721_CONTRACT_ADDRESS, PROFILE_STATUS_CONTRACT_ADDRESS, SMART_WALLET_CONTRACT_ADDRESS } from "../constants/addresses";
+import { BTN_ERC20_CONTRACT_ADDRESS, DOLLS_ERC721_CONTRACT_ADDRESS, MARKETPLACE_CONTRACT_ADDRESS, MASKS_ERC721_CONTRACT_ADDRESS, PROFILE_STATUS_CONTRACT_ADDRESS } from "../constants/addresses";
 import styles from "../styles/dashboard.module.css";
 import { NextPage } from "next";
 
@@ -26,7 +26,7 @@ const Home: NextPage = () => {
             description="Set your profile status"
           />
           <ContractCard
-            href="/"
+            href="/project/erc721"
             contractAddress={DOLLS_ERC721_CONTRACT_ADDRESS}
             title="Hounfour Dolls"
             description="Mint & stake your Hounfour Dolls"
