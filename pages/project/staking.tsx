@@ -111,7 +111,24 @@ export default function StakingProject() {
                             )
                         )}
                     </div>
-                    
+                    <div className={styles.componentCard}>
+                        <h3>Staked</h3>
+                        {isStakedERC721TokensLoading ? (
+                            <p>Loading...</p>
+                        ) : (
+                            stakedERC721Tokens && stakedERC721Tokens.length > 0 ? (
+                                    stakedERC721Tokens[0].map((stakedNFT: BigNumber, index: number) => (
+                                    <div key={index} className={styles.nftGrid}>
+                                        <StakedNFTCard
+                                                tokenId={stakedNFT.toNumber()}
+                                        />
+                                    </div>
+                                ))
+                            ) : (
+                                <p>No NFTs owned.</p>
+                            )
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

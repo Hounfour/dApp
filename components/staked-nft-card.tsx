@@ -18,28 +18,51 @@ export default function StakedNFTCard({ tokenId }: NFTProps) {
         data: nftMetadata,
         isLoading: nftMetadataIsLoading,
     } = useNFT(ERC721Contract, tokenId);
-    
+
+    const handleUnstake = async () => {
+        if (!stakingContract) return;
+
+        try {
+            // Implement confirmation modal/dialog here
+
+            await stakingContract.call(
+                "withdraw",
+                [[tokenId]]
+            );
+            // Handle success - maybe show a success message
+        } catch (error) {
+            // Handle error - show an error message or log it
+            console.error("Error unstaking:", error);
+        }
+    };
+
     return (
         <div className={styles.card}>
-            <ThirdwebNftMedia
-                metadata={nftMetadata?.metadata!}
-                width="100%"
-                height="auto"
-            />
-            <div className={styles.nftInfoContainer}>
-                <p className={styles.nftName}>{nftMetadata?.metadata.id}</p>
-                <p className={styles.nftTokenId}>Token: #{nftMetadata?.metadata.id}</p>
-            </div>
-            <Web3Button
-                contractAddress={MASK_STAKING_CONTRACT_ADDRESS}
-                action={(contract) => contract.call(
-                    "withdraw",
-                    [[tokenId]]
-                )}
-                style={{
-                    width: "100%",
-                }}
-            >Unstake</Web3Button>
+            {nftMetadataIsLoading ? (
+                <p>Loading NFT metadata...</p>
+            ) : (
+                <>
+                    <ThirdwebNftMedia
+                        metadata={nftMetadata?.metadata!}
+                        width="100%"
+                        height="auto"
+                    />
+                    <div className={styles.nftInfoContainer}>
+                        {/* Ensure nftMetadata exists before accessing its properties */}
+                        <p className={styles.nftName}>{nftMetadata?.metadata?.name}</p>
+                        <p className={styles.nftTokenId}>Token: #{tokenId}</p>
+                    </div>
+                    <Web3Button
+                        contractAddress={MASK_STAKING_CONTRACT_ADDRESS}
+                        action={(contract) => handleUnstake()}
+                        style={{
+                            width: "100%",
+                        }}
+                    >
+                        Unstake
+                    </Web3Button>
+                </>
+            )}
         </div>
-    )
+    );
 }
