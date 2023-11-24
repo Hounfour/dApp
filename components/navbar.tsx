@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import styles from '../styles/navBar.module.css';
-import { ConnectWallet, darkTheme, embeddedWallet, metamaskWallet, smartWallet, useAddress, useConnect, useContract, useOwnedNFTs } from '@thirdweb-dev/react';
+import { ConnectWallet, coinbaseWallet, darkTheme, embeddedWallet, localWallet, metamaskWallet, phantomWallet, smartWallet, trustWallet, useAddress, useConnect, useContract, useOwnedNFTs, useSmartWallet } from '@thirdweb-dev/react';
 import { MASKS_ERC721_CONTRACT_ADDRESS, SMART_WALLET_CONTRACT_ADDRESS } from '../constants/addresses';
 import { useState } from 'react';
+import { ThirdwebSDK } from "@thirdweb-dev/sdk";
 
 const customDarkTheme = darkTheme({
     fontFamily: "serif",
@@ -52,6 +53,35 @@ const smartMetaMaskWalletConfig = smartWallet(metaMaskWalletConfig, {
     gasless: true,
 });
 
+const coinbaseWalletConfig = coinbaseWallet();
+const smartCoinbaseWalletConfig = smartWallet(coinbaseWalletConfig, {
+    factoryAddress: SMART_WALLET_CONTRACT_ADDRESS,
+    gasless: true,
+});
+
+const trustWalletConfig = trustWallet();
+const smartTrustWalletConfig = smartWallet(trustWalletConfig, {
+    factoryAddress: SMART_WALLET_CONTRACT_ADDRESS,
+    gasless: true,
+});
+
+const phantomWalletConfig = phantomWallet();
+const smartPhantomWalletConfig = smartWallet(phantomWalletConfig, {
+    factoryAddress: SMART_WALLET_CONTRACT_ADDRESS,
+    gasless: true,
+});
+
+const localWalletConfig = localWallet();
+const smartLocalWalletConfig = smartWallet(localWalletConfig, {
+    factoryAddress: SMART_WALLET_CONTRACT_ADDRESS,
+    gasless: true,
+});
+
+const smartWalletConfig = {
+    factoryAddress: SMART_WALLET_CONTRACT_ADDRESS,
+    gasless: true,
+};
+
 export default function NavBar() {
     const address = useAddress();
     const connect = useConnect();
@@ -59,20 +89,40 @@ export default function NavBar() {
     const [emailInput, setEmailInput] = useState("");
     const [personalEmbeddedWalletAddress, setPersonalEmbeddedWalletAddress] = useState<string | undefined>(undefined)
     const [personalMetaMaskWalletAddress, setPersonalMetaMaskWalletAddress] = useState<string | undefined>(undefined)
+    const [personalCoinbaseWalletAddress, setPersonalCoinbaseWalletAddress] = useState<string | undefined>(undefined)
+    const [personalTrustWalletAddress, setPersonalTrustWalletAddress] = useState<string | undefined>(undefined)
+    const [personalPhantomWalletAddress, setPersonalPhantomWalletAddress] = useState<string | undefined>(undefined)
+    const [personalLocalWalletAddress, setPersonalLocalWalletAddress] = useState<string | undefined>(undefined)
 
     const [smartEmbeddedWalletAddress, setSmartEmbeddedWalletAddress] = useState<string | undefined>(undefined)
     const [smartMetaMaskWalletAddress, setSmartMetaMaskWalletAddress] = useState<string | undefined>(undefined)
+    const [smartCoinbaseWalletAddress, setSmartCoinbaseWalletAddress] = useState<string | undefined>(undefined)
+    const [smartTrustWalletAddress, setSmartTrustWalletAddress] = useState<string | undefined>(undefined)
+    const [smartPhantomWalletAddress, setSmartPhantomWalletAddress] = useState<string | undefined>(undefined)
+    const [smartLocalWalletAddress, setSmartLocalWalletAddress] = useState<string | undefined>(undefined)
 
     const handleLogin = async () => {
         try {
             const personalEmbeddedWallet = await connect(embeddedWalletConfig);
             const personalMetaMaskWallet = await connect(metaMaskWalletConfig);
+            const personalCoinbaseWallet = await connect(coinbaseWalletConfig);
+            const personalTrustWallet = await connect(trustWalletConfig);
+            const personalPhantomWallet = await connect(phantomWalletConfig);
+            const personalLocalWallet = await connect(localWalletConfig);
 
-
+            const personalEmbeddedWalletAddress = await personalEmbeddedWallet.getAddress();
             const personalMetaMaskWalletAddress = await personalMetaMaskWallet.getAddress();
+            const personalCoinbaseWalletAddress = await personalCoinbaseWallet.getAddress();
+            const personalTrustWalletAddress = await personalTrustWallet.getAddress();
+            const personalPhantomWalletAddress = await personalPhantomWallet.getAddress();
+            const personalLocalWalletAddress = await personalLocalWallet.getAddress();
 
             setPersonalEmbeddedWalletAddress(personalEmbeddedWalletAddress);
             setPersonalMetaMaskWalletAddress(personalMetaMaskWalletAddress);
+            setPersonalCoinbaseWalletAddress(personalCoinbaseWalletAddress);
+            setPersonalTrustWalletAddress(personalTrustWalletAddress);
+            setPersonalPhantomWalletAddress(personalPhantomWalletAddress);
+            setPersonalLocalWalletAddress(personalLocalWalletAddress);
 
             const smartEmbeddedWallet = await connect(smartEmbeddedWalletConfig, {
                 personalWallet: personalEmbeddedWallet,
@@ -87,6 +137,34 @@ export default function NavBar() {
             });
             const smartMetaMaskWalletAddress = await smartMetaMaskWallet.getAddress();
             setSmartMetaMaskWalletAddress(smartMetaMaskWalletAddress);
+
+            const smartCoinbaseWallet = await connect(smartCoinbaseWalletConfig, {
+                personalWallet: personalCoinbaseWallet,
+                chainId: 137,
+            });
+            const smartCoinbaseWalletAddress = await smartCoinbaseWallet.getAddress();
+            setSmartCoinbaseWalletAddress(smartCoinbaseWalletAddress);
+
+            const smartTrustWallet = await connect(smartTrustWalletConfig, {
+                personalWallet: personalTrustWallet,
+                chainId: 137,
+            });
+            const smartTrustWalletAddress = await smartTrustWallet.getAddress();
+            setSmartTrustWalletAddress(smartTrustWalletAddress);
+
+            const smartPhantomWallet = await connect(smartPhantomWalletConfig, {
+                personalWallet: personalPhantomWallet,
+                chainId: 137,
+            });
+            const smartPhantomWalletAddress = await smartPhantomWallet.getAddress();
+            setSmartPhantomWalletAddress(smartPhantomWalletAddress);
+
+            const smartLocalWallet = await connect(smartLocalWalletConfig, {
+                personalWallet: personalLocalWallet,
+                chainId: 137,
+            });
+            const smartLocalWalletAddress = await smartLocalWallet.getAddress();
+            setSmartLocalWalletAddress(smartLocalWalletAddress);
 
             setEmailInput("");
         } catch (error) {
