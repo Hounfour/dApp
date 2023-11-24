@@ -1,7 +1,15 @@
-import { Web3Button, useAddress, useContract, useContractMetadata, useContractRead, useOwnedNFTs, useTokenBalance } from '@thirdweb-dev/react';
-import styles from '../../styles/Home.module.css';
+import React, { useState, useEffect } from 'react';
+import {
+    Web3Button,
+    useAddress,
+    useContract,
+    useContractMetadata,
+    useContractRead,
+    useOwnedNFTs,
+    useTokenBalance,
+} from '@thirdweb-dev/react';
 import { BigNumber, ethers } from 'ethers';
-import { useEffect, useState } from 'react';
+import styles from '../../styles/Home.module.css';
 import { BTN_ERC20_CONTRACT_ADDRESS, MASKS_ERC721_CONTRACT_ADDRESS, MASK_STAKING_CONTRACT_ADDRESS } from '../../constants/addresses';
 import HeroCard from '../../components/hero-card';
 import StakeNFTCard from '../../components/stake-nft-card';
