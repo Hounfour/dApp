@@ -1,5 +1,15 @@
 import type { AppProps } from "next/app";
-import { LocalWallet, SmartWallet, ThirdwebProvider, coinbaseWallet, darkTheme, embeddedWallet, localWallet, metamaskWallet, phantomWallet, smartWallet, trustWallet } from "@thirdweb-dev/react";
+import {
+  ThirdwebProvider,
+  coinbaseWallet,
+  darkTheme,
+  embeddedWallet,
+  localWallet,
+  metamaskWallet,
+  phantomWallet,
+  smartWallet,
+  trustWallet
+} from "@thirdweb-dev/react";
 import "../styles/globals.css";
 import NavBar from "../components/navbar";
 import { SMART_WALLET_CONTRACT_ADDRESS } from "../constants/addresses";
@@ -45,20 +55,10 @@ const customDarkTheme = darkTheme({
   }
 });
 
-const personalWallet = new LocalWallet();
-await personalWallet.generate();
-
 const smartWalletConfig = {
-  chain: "polygon",
   factoryAddress: SMART_WALLET_CONTRACT_ADDRESS,
-  clientId: process.env.NEXT_PUBLIC_TEMPLATE_CLIENT_ID,
-  gasless: true,
+  gasless: true
 };
-
-const wallet = new SmartWallet(smartWalletConfig);
-await wallet.connect({
-  personalWallet,
-});
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

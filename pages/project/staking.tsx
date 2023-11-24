@@ -82,7 +82,7 @@ export default function StakingProject() {
                 />
                 <div className={styles.grid}>
                     <div className={styles.componentCard}>
-                        <h3>Rewards</h3>
+                        <h3 className={styles.gradientText0}>Rewards</h3>
                         {tokenBalanceIsLoading ? (
                             <p>Loading Balance...</p>
                         ) : (
@@ -117,7 +117,7 @@ export default function StakingProject() {
                             ) : (
                                 <p>No NFTs owned.</p>
                             )
-                        )};
+                        )}
                     </div>
                     <div className={styles.componentCard}>
                         <h3>Staked</h3>
@@ -135,7 +135,7 @@ export default function StakingProject() {
                             ) : (
                                 <p>No NFTs owned.</p>
                             )
-                        )};
+                        )}
                     </div>
                 </div>
             </div>
