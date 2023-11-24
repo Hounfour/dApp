@@ -51,7 +51,7 @@ export default function ProfileStatusProject() {
                     <div className={styles.componentCard}>
                         <h3>Current Status</h3>
                         {userStatusIsLoading ? "Loading..." : (
-                            userStatus.exists ? userStatus.statusMessage : <i>No status yet</i>
+                            userStatus && userStatus.exists ? userStatus.statusMessage : <i>No status yet</i>
                         )}
                     </div>
                     <div className={styles.componentCard}>

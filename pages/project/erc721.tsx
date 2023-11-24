@@ -89,6 +89,7 @@ export default function ERC721Project() {
                             ) : (
                                 ` ${totalSupply?.toNumber()}`
                             )}
+                        </p>
                         <p className={styles.gradientText1}>
                             Total Claimed:
                             {totalClaimedSupplyIsLoading ? (
@@ -96,6 +97,7 @@ export default function ERC721Project() {
                             ) : (
                                 ` ${totalClaimedSupply?.toNumber()}`
                             )}
+                        </p>
                         <p className={styles.gradientText1}>
                             Total Owned:
                             {ownedNFTsIsLoading ? (
@@ -103,8 +105,6 @@ export default function ERC721Project() {
                             ) : (
                                 ` ${ownedNFTs?.length}`
                             )}
-                        </p>
-                        </p>
                         </p>
                     </div>
                     <div className={styles.componentCard}>
@@ -140,7 +140,15 @@ export default function ERC721Project() {
                                             <div className={styles.cardText}>
                                                 <h2>{nft.metadata.name}</h2>
                                             </div>
-                                            
+                                            <Link href={`/projects/staking`}>
+                                                <button
+                                                    className={styles.matchButton}
+                                                    style={{
+                                                        width: "100%",
+                                                        borderRadius: "0 0 10px 10px",
+                                                    }}
+                                                >Stake NFT</button>
+                                            </Link>
                                         </div>
                                     ))
                                 )}
