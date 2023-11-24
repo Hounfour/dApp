@@ -19,8 +19,8 @@ import {
 } from '../../constants/addresses'
 import { useEffect, useState } from 'react';
 import { BigNumber, ethers } from 'ethers';
-import StakeNFTCard from '../../components/stake-nft-card';
-import StakedNFTCard from '../../components/staked-nft-card';
+import StakeDollCard from '../../components/stake-doll-card';
+import StakedDollCard from '../../components/staked-doll-card';
 
 const customDarkTheme = darkTheme({
     fontFamily: "serif",
@@ -115,11 +115,6 @@ export default function ERC721Project() {
 
     const [quantity, setQuantity] = useState(1); // State to track the quantity
 
-
-
-
-
-
     return (
     <div className={styles.container}>
             <div className={styles.grid}>
@@ -203,7 +198,7 @@ export default function ERC721Project() {
                         ownedNFTs && ownedNFTs.length > 0 ? (
                             ownedNFTs.map((nft) => (
                                 <div key={nft.metadata.id} className={styles.nftGrid}>
-                                    <StakeNFTCard
+                                    <StakeDollCard
                                         nft={nft}
                                     />
                                 </div>
@@ -221,7 +216,7 @@ export default function ERC721Project() {
                         stakedNFTs && stakedNFTs.length > 0 ? (
                             stakedNFTs[0].map((stakedNFT: BigNumber, index: number) => (
                                 <div key={index} className={styles.nftGrid}>
-                                    <StakedNFTCard
+                                    <StakedDollCard
                                         tokenId={stakedNFT.toNumber()}
                                     />
                                 </div>

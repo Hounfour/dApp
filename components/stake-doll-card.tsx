@@ -1,5 +1,5 @@
-import { ThirdwebNftMedia, Web3Button, useAddress, useContract, useNFT } from "@thirdweb-dev/react";
-import { DOLLS_ERC721_CONTRACT_ADDRESS, DOLLS_STAKING_CONTRACT_ADDRESS, MASKS_ERC721_CONTRACT_ADDRESS, MASK_STAKING_CONTRACT_ADDRESS } from "../constants/addresses"
+import { ThirdwebNftMedia, Web3Button, useAddress, useContract } from "@thirdweb-dev/react";
+import { DOLLS_ERC721_CONTRACT_ADDRESS, DOLLS_STAKING_CONTRACT_ADDRESS } from "../constants/addresses"
 import { NFT } from "@thirdweb-dev/sdk";
 import styles from "../styles/Home.module.css";
 
@@ -7,32 +7,32 @@ type NFTProps = {
     nft: NFT;
 };
 
-export default function StakeNFTCard({ nft }: NFTProps) {
+export default function StakeDollCard({ nft }: NFTProps) {
     const address = useAddress();
 
     const {
-        contract: ERC721Contract
-    } = useContract(MASKS_ERC721_CONTRACT_ADDRESS, "nft-drop")
+        contract: dollMintContract
+    } = useContract(DOLLS_ERC721_CONTRACT_ADDRESS, "nft-drop")
     const {
-        contract: stakingContract
-    } = useContract(MASK_STAKING_CONTRACT_ADDRESS);
+        contract: dollStakingContract
+    } = useContract(DOLLS_STAKING_CONTRACT_ADDRESS);
 
     async function stakeNFT(nftId: number[]) {
         if (!address) return;
-        
-        const isApproved = await ERC721Contract?.isApproved(
+
+        const isApproved = await dollMintContract?.isApproved(
             address,
-            MASK_STAKING_CONTRACT_ADDRESS,
+            DOLLS_STAKING_CONTRACT_ADDRESS,
         );
 
         if (!isApproved) {
-            await ERC721Contract?.setApprovalForAll(
-                MASK_STAKING_CONTRACT_ADDRESS,
+            await dollMintContract?.setApprovalForAll(
+                DOLLS_STAKING_CONTRACT_ADDRESS,
                 true
             );
         };
 
-        await stakingContract?.call("stake", [nftId]);
+        await dollStakingContract?.call("stake", [nftId]);
     };
 
     return (
@@ -47,9 +47,9 @@ export default function StakeNFTCard({ nft }: NFTProps) {
                 <p className={styles.nftTokenId}>Token ID#{nft.metadata.id}</p>
             </div>
             <Web3Button
-                contractAddress={MASK_STAKING_CONTRACT_ADDRESS}
+                contractAddress={DOLLS_STAKING_CONTRACT_ADDRESS}
                 action={() => stakeNFT([parseInt(nft.metadata.id)])}
-                style={{width: "100%"}}
+                style={{ width: "100%" }}
             >Stake</Web3Button>
         </div>
     )
