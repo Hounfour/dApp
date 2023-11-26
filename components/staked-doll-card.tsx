@@ -1,4 +1,4 @@
-import styles from '../styles/Home.module.css'
+import styles from '../styles/collections.module.css'
 import { ThirdwebNftMedia, Web3Button, useContract, useNFT } from '@thirdweb-dev/react';
 import { DOLLS_ERC721_CONTRACT_ADDRESS, DOLLS_STAKING_CONTRACT_ADDRESS } from '../constants/addresses';
 
@@ -6,7 +6,7 @@ type NFTProps = {
     tokenId: number;
 }
 
-export default function StakedNFTCard({ tokenId }: NFTProps) {
+export default function StakedDollCard({ tokenId }: NFTProps) {
     const {
         contract: ERC721Contract
     } = useContract(DOLLS_ERC721_CONTRACT_ADDRESS, "nft-drop");

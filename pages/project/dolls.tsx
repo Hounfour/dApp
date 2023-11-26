@@ -11,7 +11,7 @@ import {
     useTotalCount
 } from '@thirdweb-dev/react'
 import HeroCard from '../../components/hero-card'
-import styles from '../../styles/Home.module.css'
+import styles from '../../styles/collections.module.css'
 import {
     BTN_ERC20_CONTRACT_ADDRESS,
     DOLLS_ERC721_CONTRACT_ADDRESS,
@@ -47,7 +47,7 @@ const customDarkTheme = darkTheme({
     }
 });
 
-export default function ERC721Project() {
+export default function DollsProject() {
     const smartWalletAddress = useAddress();
 
     const [claimableRewards, setClaimableRewards] = useState<BigNumber>();
@@ -99,7 +99,6 @@ export default function ERC721Project() {
                 console.error(error);
             }
         }
-
         getClaimableRewards();
     }, [smartWalletAddress, stakingContract]);
 
@@ -117,34 +116,34 @@ export default function ERC721Project() {
 
     return (
     <div className={styles.container}>
-            <div className={styles.grid}>
-                {claimableRewards && (
-                    <p className={styles.gradientText1}>REWARDS EARNED: {ethers.utils.formatEther(claimableRewards)} 👉</p>
-                )}
-                <Web3Button
-                    contractAddress={DOLLS_STAKING_CONTRACT_ADDRESS}
-                    action={(contract) => contract.call("claimRewards")}
-                    onSubmit={() => alert(`Claiming Rewards`)} // Alert with the selected quantity
-                    onSuccess={() => alert(`Rewards claimed to wallet!`)} // Alert success with quantity
-                    onError={() => alert("Claim Failed to process.")}
-                    isDisabled={!claimableRewards || claimableRewards.isZero()}
-                    theme={customDarkTheme}
-                >CLAIM</Web3Button>
-                <p className={styles.gradientText1}>MINT PRICE: 33 MATIC 👉</p>
-                <input
-                    type="number"
-                    min="1"
-                    value={quantity}
-                    onChange={(e) => setQuantity(parseInt(e.target.value))}
-                />
-                <Web3Button
-                    contractAddress={DOLLS_ERC721_CONTRACT_ADDRESS}
-                    action={(contract) => contract.erc721.claim(quantity)}
-                    onSubmit={() => alert(`Minting ${quantity} NFT(s)`)} // Alert with the selected quantity
-                    onSuccess={() => alert(`NFTs Minted to wallet! Quantity: ${quantity}`)} // Alert success with quantity
-                    onError={() => alert("Mint Failed to process.")}
-                    theme={customDarkTheme}
-                >MINT</Web3Button>
+        <div className={styles.grid}>
+            {claimableRewards && (
+                <p className={styles.gradientText1}>REWARDS EARNED: {ethers.utils.formatEther(claimableRewards)} 👉</p>
+            )}
+            <Web3Button
+                contractAddress={DOLLS_STAKING_CONTRACT_ADDRESS}
+                action={(contract) => contract.call("claimRewards")}
+                onSubmit={() => alert(`Claiming Rewards`)}
+                onSuccess={() => alert(`Rewards claimed to wallet!`)}
+                onError={() => alert("Claim Failed to process.")}
+                isDisabled={!claimableRewards || claimableRewards.isZero()}
+                theme={customDarkTheme}
+            >CLAIM</Web3Button>
+            <p className={styles.gradientText1}>MINT PRICE: 33 MATIC 👉</p>
+            <input
+                type="number"
+                min="1"
+                value={quantity}
+                onChange={(e) => setQuantity(parseInt(e.target.value))}
+            />
+            <Web3Button
+                contractAddress={DOLLS_ERC721_CONTRACT_ADDRESS}
+                action={(contract) => contract.erc721.claim(quantity)}
+                onSubmit={() => alert(`Minting ${quantity} NFT(s)`)}
+                onSuccess={() => alert(`NFTs Minted to wallet! Quantity: ${quantity}`)}
+                onError={() => alert("Mint Failed to process.")}
+                theme={customDarkTheme}
+            >MINT</Web3Button>
         </div>
         <div className={styles.contractPage}>
             <HeroCard
@@ -153,26 +152,25 @@ export default function ERC721Project() {
                 description={nftContractMetadata?.description!}
                 image={nftContractMetadata?.image!}
             />
-            </div>
             <div className={styles.grid}>
                 <div>
-                    <h3 className={styles.gradientText0}>Contract Stats</h3>
-                    <p className={styles.gradientText1}>
-                        Total Supply:
-                        {totalSupplyIsLoading ? (
-                            "Loading..."
-                        ) : (
-                            ` ${totalSupply?.toNumber()}`
-                        )}
-                    </p>
-                    <p className={styles.gradientText1}>
-                        Total Claimed:
-                        {totalClaimedSupplyIsLoading ? (
-                            "Loading..."
-                        ) : (
-                            ` ${totalClaimedSupply?.toNumber()}`
-                        )}
-                    </p>
+                        <h3 className={styles.gradientText0}>Collection Stats</h3>
+                        <p className={styles.gradientText1}>
+                            Total Supply:
+                            {totalSupplyIsLoading ? (
+                                "Loading..."
+                            ) : (
+                                ` ${totalSupply?.toNumber()}`
+                            )}
+                        </p>
+                        <p className={styles.gradientText1}>
+                            Total Claimed:
+                            {totalClaimedSupplyIsLoading ? (
+                                "Loading..."
+                            ) : (
+                                ` ${totalClaimedSupply?.toNumber()}`
+                            )}
+                        </p>
                 </div>
                 <div>
                     <h3 className={styles.gradientText0}>Rewards</h3>
@@ -184,49 +182,50 @@ export default function ERC721Project() {
                             ` ${ownedNFTs?.length}`
                         )}
                     </p>
-                    {tokenBalanceIsLoading ? (
-                        <p>Loading Balance...</p>
-                    ) : (
-                            <p className={styles.gradientText1}>Balance: {Number(tokenBalance?.displayValue).toFixed(1)} {tokenBalance?.symbol}</p>
+                        {tokenBalanceIsLoading ? (
+                            <p>Loading Balance...</p>
+                        ) : (
+                        <p className={styles.gradientText1}>Balance: {Number(tokenBalance?.displayValue).toFixed(1)} {tokenBalance?.symbol}</p>
                     )}
                 </div>
                 <div>
                     <h3 className={styles.gradientText0}>Unstaked</h3>
-                    {ownedNFTsIsLoading ? (
-                        <p>Loading...</p>
-                    ) : (
-                        ownedNFTs && ownedNFTs.length > 0 ? (
-                            ownedNFTs.map((nft) => (
-                                <div key={nft.metadata.id} className={styles.nftGrid}>
-                                    <StakeDollCard
-                                        nft={nft}
-                                    />
-                                </div>
-                            ))
+                        {ownedNFTsIsLoading ? (
+                            <p>Loading...</p>
                         ) : (
+                            ownedNFTs && ownedNFTs.length > 0 ? (
+                                ownedNFTs.map((nft) => (
+                                    <div key={nft.metadata.id} className={styles.nftGrid}>
+                                        <StakeDollCard
+                                            nft={nft}
+                                        />
+                                    </div>
+                                ))
+                            ) : (
                             <p className={styles.gradientText1}>No NFTs owned.</p>
                         )
                     )}
                 </div>
                 <div>
                     <h3 className={styles.gradientText0}>Staked</h3>
-                    {isStakedNFTsLoading ? (
-                        <p>Loading...</p>
-                    ) : (
-                        stakedNFTs && stakedNFTs.length > 0 ? (
-                            stakedNFTs[0].map((stakedNFT: BigNumber, index: number) => (
-                                <div key={index} className={styles.nftGrid}>
-                                    <StakedDollCard
-                                        tokenId={stakedNFT.toNumber()}
-                                    />
-                                </div>
-                            ))
+                        {isStakedNFTsLoading ? (
+                            <p>Loading...</p>
                         ) : (
+                            stakedNFTs && stakedNFTs.length > 0 ? (
+                                stakedNFTs[0].map((stakedNFT: BigNumber, index: number) => (
+                                    <div key={index} className={styles.nftGrid}>
+                                        <StakedDollCard
+                                            tokenId={stakedNFT.toNumber()}
+                                        />
+                                    </div>
+                                ))
+                            ) : (
                             <p className={styles.gradientText1}>No NFTs owned.</p>
                         )
                     )}
                 </div>
             </div>
-            </div>
+        </div>
+    </div>
     );
 };

@@ -1,7 +1,7 @@
 import { ThirdwebNftMedia, Web3Button, useAddress, useContract } from "@thirdweb-dev/react";
 import { DOLLS_ERC721_CONTRACT_ADDRESS, DOLLS_STAKING_CONTRACT_ADDRESS } from "../constants/addresses"
 import { NFT } from "@thirdweb-dev/sdk";
-import styles from "../styles/Home.module.css";
+import styles from "../styles/collections.module.css";
 
 type NFTProps = {
     nft: NFT;
