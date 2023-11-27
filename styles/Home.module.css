@@ -409,3 +409,8 @@
   color: #fff;
   margin: 0.75rem 0;
 }
+
+.linkContainer {
+  display: flex;
+  gap: 66px; /* Adjust the gap as needed */
+}
