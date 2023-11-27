@@ -7,7 +7,7 @@ import {
   metamaskWallet,
   phantomWallet,
   smartWallet,
-  trustWallet
+  trustWallet,
 } from "@thirdweb-dev/react";
 import "../styles/globals.css";
 import NavBar from "../components/navbar";
@@ -17,7 +17,7 @@ const activeChain = "polygon";
 
 const smartWalletConfig = {
   factoryAddress: SMART_WALLET_CONTRACT_ADDRESS,
-  gasless: true
+  gasless: true,
 };
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -31,7 +31,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         smartWallet(coinbaseWallet(), smartWalletConfig),
         smartWallet(trustWallet(), smartWalletConfig),
         smartWallet(phantomWallet(), smartWalletConfig),
-        smartWallet(localWallet(), smartWalletConfig)
+        smartWallet(localWallet(), smartWalletConfig),
       ]}
     >
       <NavBar />
