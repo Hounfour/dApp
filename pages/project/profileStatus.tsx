@@ -108,9 +108,7 @@ const ProfileStatusProject = () => {
                 contractAddress={PROFILE_STATUS_CONTRACT_ADDRESS}
                 action={updateStatus}
                 onSubmit={() => alert("Submitting status...")}
-                onSuccess={() =>
-                  alert("Status set!")
-                }
+                onSuccess={() => alert("Status set!")}
                 onError={() => alert("Operation failed.")}
                 theme={customDarkTheme}
               >

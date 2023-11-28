@@ -9,10 +9,11 @@ import {
   PROFILE_STATUS_CONTRACT_ADDRESS,
 } from "../constants/addresses";
 import styles from "../styles/dashboard.module.css";
+import { Login } from "../components/login";
 
 const contractCardsData = [
   {
-    href: "/",
+    href: "/project/butns",
     contractAddress: BUTN_ERC20_CONTRACT_ADDRESS,
     title: "$BUTNS",
     description: "Hounfour's primary currency",
@@ -57,17 +58,20 @@ const Home: NextPage = () => {
   }, []);
 
   return (
-    <main className={styles.container}>
-      <header>
-        <h1 className={styles.title}>
-          Vodou <span className={styles.gradientText}>dApp</span>
-          <p className={styles.description} style={{ paddingLeft: "5rem" }}>
-            Hounfours Web3 Portal
-          </p>
-        </h1>
-      </header>
-      <section className={styles.grid}>{renderContractCards}</section>
-    </main>
+    <>
+      <Login />
+      <main className={styles.container}>
+        <header>
+          <h1 className={styles.title}>
+            Vodou <span className={styles.gradientText}>dApp</span>
+            <p className={styles.description} style={{ paddingLeft: "5rem" }}>
+              Hounfours Web3 Portal
+            </p>
+          </h1>
+        </header>
+        <section className={styles.grid}>{renderContractCards}</section>
+      </main>
+    </>
   );
 };
 
