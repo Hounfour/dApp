@@ -59,7 +59,6 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <Login />
       <main className={styles.container}>
         <header>
           <h1 className={styles.title}>
